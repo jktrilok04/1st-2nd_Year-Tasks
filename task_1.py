@@ -1,19 +1,20 @@
 from hashlib import sha256
 
-def Login (username,password):
-    with open("userdata.txt","r") as f:
-        hash=hashing(password)
+def Login(username, password):
+    with open("userdata.txt", "r") as f:
+        hash = hashing(password)
         for line in f.readlines():
-            data=line.split(",")
-            if data[0]==username and data[1]==hash :
+            data = line.strip().split(",")
+            if len(data) == 2 and data[0] == username and data[1] == hash:
                 print("Login successful!")
                 return
-    print("Login failed")       
+    print("Login failed")
+     
         
 def Register(username,password):
     with open("userdata.txt","a") as f:
         hash=hashing(password)
-        f.write(f"{username},{hash}")
+        f.write(f"{username},{hash}\n")
         print("Registration successful!")
 
 def hashing(password):
